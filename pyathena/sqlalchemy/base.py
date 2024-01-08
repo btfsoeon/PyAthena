@@ -1001,8 +1001,8 @@ class AthenaDialect(DefaultDialect):
             )
             if url.host
             else None,
-            "catalog_name": url.database.split("/")[0] if url.database and "." in url.database else "awsdatacatalog",
-            "schema_name": (url.database.split("/")[1] if "/" in url.database else url.database) if url.database else "default",
+            "catalog_name": url.database.split(".")[0] if url.database and "." in url.database else "awsdatacatalog",
+            "schema_name": (url.database.split(".")[1] if "." in url.database else url.database) if url.database else "default",
         }
         opts.update(url.query)
         if "verify" in opts:
