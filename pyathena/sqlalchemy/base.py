@@ -988,7 +988,7 @@ class AthenaDialect(DefaultDialect):
         # Connection string format:
         #   awsathena+rest://
         #   {aws_access_key_id}:{aws_secret_access_key}@athena.{region_name}.amazonaws.com:443/
-        #   {schema_name}?s3_staging_dir={s3_staging_dir}&...
+        #   {catalog_name}.{schema_name}?s3_staging_dir={s3_staging_dir}&...
         self._connect_options = self._create_connect_args(url)
         return cast(Tuple[str], tuple()), self._connect_options
 
@@ -1001,7 +1001,8 @@ class AthenaDialect(DefaultDialect):
             )
             if url.host
             else None,
-            "schema_name": url.database if url.database else "default",
+            "catalog_name": url.database.split("/")[0] if url.database and "." in url.database else "awsdatacatalog",
+            "schema_name": (url.database.split("/")[1] if "/" in url.database else url.database) if url.database else "default",
         }
         opts.update(url.query)
         if "verify" in opts:
