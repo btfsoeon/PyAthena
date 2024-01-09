@@ -153,6 +153,14 @@ If you do not specify ``aws_access_key_id`` and ``aws_secret_access_key`` using 
 
     awsathena+rest://:@athena.{region_name}.amazonaws.com:443/{schema_name}?s3_staging_dir={s3_staging_dir}&...
 
+Additional field
+^^^^^^^^^^^^^^^^
+You can specify ``catalog``:
+
+.. code:: text
+
+    awsathena+rest://:@athena.{region_name}.amazonaws.com:443/{catalog_name}.{schema_name}?s3_staging_dir={s3_staging_dir}&...
+
 Dialect & driver
 ^^^^^^^^^^^^^^^^
 
